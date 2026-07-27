@@ -132,6 +132,8 @@ export default function Home() {
   return (
     <main className="pt-4 px-10">
       <h1 className="text-3xl font-bold">Suspension Geometry Analyzer</h1>
+      <p>Written By: Nick Fanelli & Marina Greer</p>
+      <p className="text-sm">Inspired by a project written by spooky-simon, Thanks to the genius mathematic documentation by MathWorks & Firgelli Automations</p>
 
       <form onSubmit={calculate}>
         <div className="flex">
