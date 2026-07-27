@@ -1,6 +1,6 @@
 "use client";
 
-import { calculateLineDistanceFromTwoPoints, Point } from "./(utils)/utility";
+import { calculateLineDistanceFromTwoPoints, calculateSuspension, generateSuspensionGeometryFromPoints, Point } from "./(utils)/utility";
 
 export default function Home() {
 
@@ -20,7 +20,21 @@ export default function Home() {
         const pointH: Point = { x: Number.parseFloat(formData.get("hx")?.toString() || "0"), y: Number.parseFloat(formData.get("hy")?.toString() || "0"), z: Number.parseFloat(formData.get("hz")?.toString() || "0") }
         const pointI: Point = { x: Number.parseFloat(formData.get("ix")?.toString() || "0"), y: Number.parseFloat(formData.get("iy")?.toString() || "0"), z: Number.parseFloat(formData.get("iz")?.toString() || "0") }
 
-        console.log("AC Dist", calculateLineDistanceFromTwoPoints(pointA, pointC));
+        console.table([
+            { Point: "A", X: pointA.x, Y: pointA.y, Z: pointA.z },
+            { Point: "B", X: pointB.x, Y: pointB.y, Z: pointB.z },
+            { Point: "C", X: pointC.x, Y: pointC.y, Z: pointC.z },
+            { Point: "D", X: pointD.x, Y: pointD.y, Z: pointD.z },
+            { Point: "E", X: pointE.x, Y: pointE.y, Z: pointE.z },
+            { Point: "F", X: pointF.x, Y: pointF.y, Z: pointF.z },
+            { Point: "G", X: pointG.x, Y: pointG.y, Z: pointG.z },
+            { Point: "H", X: pointH.x, Y: pointH.y, Z: pointH.z },
+            { Point: "I", X: pointI.x, Y: pointI.y, Z: pointI.z },
+        ]);
+
+        const suspensionGeometry = generateSuspensionGeometryFromPoints(pointA, pointB, pointC, pointD, pointE, pointF, pointG, pointH, pointI);
+        const suspensionResults = calculateSuspension(suspensionGeometry);
+        console.log(suspensionResults);
 
     }
 
@@ -38,75 +52,75 @@ export default function Home() {
                         <li className="flex items-center justify-between">
                             <p>UCA Inbd, Front (a)</p>
                             <div>
-                                <input type="number" name="ax" id="" placeholder="X" className="input mx-2 w-30" defaultValue={10} required />
-                                <input type="number" name="ay" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={12} required />
-                                <input type="number" name="az" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={21} required />
+                                <input type="number" name="ax" id="" placeholder="X" className="input mx-2 w-30" defaultValue={10} step="any" required />
+                                <input type="number" name="ay" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={12} step="any" required />
+                                <input type="number" name="az" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={21} step="any" required />
                             </div>
                         </li>
                         <li className="flex items-center justify-between">
                             <p>UCA Inbd, Rear (b)</p>
                             <div>
-                                <input type="number" name="bx" id="" placeholder="X" className="input mx-2 w-30" defaultValue={5.5} required />
-                                <input type="number" name="by" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={6} required />
-                                <input type="number" name="bz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={21} required />
+                                <input type="number" name="bx" id="" placeholder="X" className="input mx-2 w-30" defaultValue={5.5} step="any" required />
+                                <input type="number" name="by" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={6} step="any" required />
+                                <input type="number" name="bz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={21} step="any" required />
                             </div>
                         </li>
                         <li className="flex items-center justify-between">
                             <p>Upper Ball Joint (c)</p>
                             <div>
-                                <input type="number" name="cx" id="" placeholder="X" className="input mx-2 w-30" defaultValue={23} required />
-                                <input type="number" name="cy" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={0} required />
-                                <input type="number" name="cz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={14.25} required />
+                                <input type="number" name="cx" id="" placeholder="X" className="input mx-2 w-30" defaultValue={23} step="any" required />
+                                <input type="number" name="cy" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={0} step="any" required />
+                                <input type="number" name="cz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={14.25} step="any" required />
                             </div>
                         </li>
                         <li className="font-bold text-xl mb-2 my-5">Lower Control Arm Points</li>
                         <li className="flex items-center justify-between">
                             <p>LCA Inbd, Front (d)</p>
                             <div>
-                                <input type="number" name="dx" id="" placeholder="X" className="input mx-2 w-30" defaultValue={10} required />
-                                <input type="number" name="dy" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={12} required />
-                                <input type="number" name="dz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={14} required />
+                                <input type="number" name="dx" id="" placeholder="X" className="input mx-2 w-30" defaultValue={10} step="any" required />
+                                <input type="number" name="dy" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={12} step="any" required />
+                                <input type="number" name="dz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={14} step="any" required />
                             </div>
                         </li>
                         <li className="flex items-center justify-between">
                             <p>LCA Inbd, Rear (e)</p>
                             <div>
-                                <input type="number" name="ex" id="" placeholder="X" className="input mx-2 w-30" defaultValue={5.5} required />
-                                <input type="number" name="ey" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={6} required />
-                                <input type="number" name="ez" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={14} required />
+                                <input type="number" name="ex" id="" placeholder="X" className="input mx-2 w-30" defaultValue={5.5} step="any" required />
+                                <input type="number" name="ey" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={6} step="any" required />
+                                <input type="number" name="ez" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={14} step="any" required />
                             </div>
                         </li>
                         <li className="flex items-center justify-between">
                             <p>Lower Ball Joint (f)</p>
                             <div>
-                                <input type="number" name="fx" id="" placeholder="X" className="input mx-2 w-30" defaultValue={23} required />
-                                <input type="number" name="fy" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={0} required />
-                                <input type="number" name="fz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={7.75} required />
+                                <input type="number" name="fx" id="" placeholder="X" className="input mx-2 w-30" defaultValue={23} step="any" required />
+                                <input type="number" name="fy" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={0} step="any" required />
+                                <input type="number" name="fz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={7.75} step="any" required />
                             </div>
                         </li>
                         <li className="font-bold text-xl mb-2  my-5">Final Points</li>
                         <li className="flex items-center justify-between">
                             <p>Toe Link Inboard (g)</p>
                             <div>
-                                <input type="number" name="gx" id="" placeholder="X" className="input mx-2 w-30" defaultValue={5.5} required />
-                                <input type="number" name="gy" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={6} required />
-                                <input type="number" name="gz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={21} required />
+                                <input type="number" name="gx" id="" placeholder="X" className="input mx-2 w-30" defaultValue={5.5} step="any" required />
+                                <input type="number" name="gy" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={6} step="any" required />
+                                <input type="number" name="gz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={21} step="any" required />
                             </div>
                         </li>
                         <li className="flex items-center justify-between">
                             <p>Toe Link Outboard (h)</p>
                             <div>
-                                <input type="number" name="hx" id="" placeholder="X" className="input mx-2 w-30" defaultValue={23} required />
-                                <input type="number" name="hy" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={3} required />
-                                <input type="number" name="hz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={11} required />
+                                <input type="number" name="hx" id="" placeholder="X" className="input mx-2 w-30" defaultValue={23} step="any" required />
+                                <input type="number" name="hy" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={3} step="any" required />
+                                <input type="number" name="hz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={11} step="any" required />
                             </div>
                         </li>
                         <li className="flex items-center justify-between">
                             <p>Wheel Center (i)</p>
                             <div>
-                                <input type="number" name="ix" id="" placeholder="X" className="input mx-2 w-30" defaultValue={23} required />
-                                <input type="number" name="iy" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={0} required />
-                                <input type="number" name="iz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={11} required />
+                                <input type="number" name="ix" id="" placeholder="X" className="input mx-2 w-30" defaultValue={23} step="any" required />
+                                <input type="number" name="iy" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={0} step="any" required />
+                                <input type="number" name="iz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={11} step="any" required />
                             </div>
                         </li>
                     </ul>
@@ -128,7 +142,7 @@ export default function Home() {
                         </ul>
 
                         <div className="mt-10">
-                            <h2 className="text-xl font-bold">Chamber: VALUE</h2>
+                            <h2 className="text-xl font-bold">Camber: VALUE</h2>
                             <h2 className="text-xl font-bold">Toe: VALUE</h2>
                             <h2 className="text-xl font-bold">Caster: VALUE</h2>
                             <h2 className="text-xl font-light italic mt-2 opacity-50">Roll Center: COMING SOON</h2>
