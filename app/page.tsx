@@ -32,8 +32,8 @@ function getNum(formData: FormData, name: string, fallback = 0): number {
   return Number.isNaN(parsed) ? fallback : parsed;
 }
 
-const radiansToDegrees = (radians: number) : number => radians * (180 / Math.PI);
-const mmToInches = (mm: number) : number => mm * 0.0393701;
+const radiansToDegrees = (radians: number): number => radians * (180 / Math.PI);
+const mmToInches = (mm: number): number => mm * 0.0393701;
 const inToMM = (inches: number) => inches * 25.4;
 
 function getPoint(formData: FormData, prefix: string): Vec3 {
@@ -131,13 +131,43 @@ export default function Home() {
 
   return (
     <main className="px-10 my-10">
-      <h1 className="text-3xl font-black mb-1">Suspension Geometry Analyzer</h1>
-      <p>Written By: Nick Fanelli & Marina Greer</p>
-      <p className="text-sm">Inspired by a project written by spooky-simon, Thanks to the genius mathematic documentation by MathWorks & Firgelli Automations</p>
-      <p className="text-sm mt-3 italic">All inputs should be in Inches (in) all outputs will be in Inches (in) and Degrees (deg). Due to the nature of the calculations
-        you are unfortunately unable to substitute other units. However if you fork the repository, there's a method mmToInches and inToMM that upon changing will allow you
-        to take in any units as the backend logic expects mm.
-      </p>
+      <div className="mb-2">
+        <h1 className="text-4xl font-black tracking-tight">
+          Suspension Geometry Analyzer
+        </h1>
+
+        <p className="mt-2 text-base text-base-content/80">
+          Developed by <span className="font-semibold">Nick Fanelli</span> &{" "}
+          <span className="font-semibold">Marina Greer</span>
+        </p>
+
+        <p className="mt-3 max-w-4xl text-sm leading-relaxed text-base-content/70">
+          Inspired by the suspension geometry project created by{" "}
+          <span className="font-medium">spooky-simon</span>. Special thanks to{" "}
+          <span className="font-medium">MathWorks</span> and{" "}
+          <span className="font-medium">Firgelli Automations</span> for their
+          excellent mathematical documentation and technical resources that helped
+          make this project possible.
+        </p>
+
+        <div className="mt-5 rounded-xl border border-base-300 bg-base-200/40 p-4">
+          <h2 className="mb-2 font-semibold">Units</h2>
+
+          <p className="text-sm leading-relaxed text-base-content/80">
+            <strong>Inputs:</strong> Inches (in)
+            <br />
+            <strong>Outputs:</strong> Inches (in) and Degrees (°)
+          </p>
+
+          <p className="mt-3 text-sm leading-relaxed text-base-content/70">
+            The solver internally performs all calculations using millimeters.
+            Although this application accepts inches, you can easily support other
+            units by modifying the <code>mmToInches()</code> and{" "}
+            <code>inToMM()</code> conversion functions if you choose to fork the
+            repository.
+          </p>
+        </div>
+      </div>
 
       <form onSubmit={calculate}>
         <div className="">
@@ -342,57 +372,57 @@ export default function Home() {
           </div>
         </div>
 
-      <button className="btn btn-success mt-10 w-full" type="submit">
-        Calculate
-      </button>
-    </form>
+        <button className="btn btn-success mt-10 w-full" type="submit">
+          Calculate
+        </button>
+      </form>
 
       {
-    error && (
-      <p className="text-red-600 font-semibold mt-6">{error}</p>
-    )
-  }
+        error && (
+          <p className="text-red-600 font-semibold mt-6">{error}</p>
+        )
+      }
 
-  {
-    summary && (
-      <div className="mt-10 pb-20">
-        <h2 className="text-2xl font-bold mb-4">Simulated Kinematics</h2>
-        <div className="overflow-x-auto">
-          <table className="table table-zebra">
-            <thead>
-              <tr>
-                <th className="text-right">Step</th>
-                <th className="text-right">Travel (in)</th>
-                <th className="text-right">Camber (deg)</th>
-                <th className="text-right">Caster (deg)</th>
-                <th className="text-right">Toe (deg)</th>
-                <th className="text-right">Scrub (in)</th>
-                <th className="text-right">RC Y (in)</th>
-                <th className="text-right">RC Z (in)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {summary.rows.map((row) => (
-                <tr
-                  key={row.step}
-                  className={`${row.step === summary.staticIndex ? "font-bold" : ""} ${row.travel === 0 ? "bg-blue-400" : ""}`}
-                >
-                  <td className="text-right">{row.step}</td>
-                  <td className="text-right">{mmToInches(row.travel).toFixed(3)}</td>
-                  <td className="text-right">{radiansToDegrees(row.camber).toFixed(3)}</td>
-                  <td className="text-right">{radiansToDegrees(row.caster).toFixed(3)}</td>
-                  <td className="text-right">{radiansToDegrees(row.toe).toFixed(3)}</td>
-                  <td className="text-right">{mmToInches(row.scrub).toFixed(3)}</td>
-                  <td className="text-right">{mmToInches(row.rcY).toFixed(3)}</td>
-                  <td className="text-right">{mmToInches(row.rcZ).toFixed(3)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    )
-  }
+      {
+        summary && (
+          <div className="mt-10 pb-20">
+            <h2 className="text-2xl font-bold mb-4">Simulated Kinematics</h2>
+            <div className="overflow-x-auto">
+              <table className="table table-zebra">
+                <thead>
+                  <tr>
+                    <th className="text-right">Step</th>
+                    <th className="text-right">Travel (in)</th>
+                    <th className="text-right">Camber (deg)</th>
+                    <th className="text-right">Caster (deg)</th>
+                    <th className="text-right">Toe (deg)</th>
+                    <th className="text-right">Scrub (in)</th>
+                    <th className="text-right">RC Y (in)</th>
+                    <th className="text-right">RC Z (in)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {summary.rows.map((row) => (
+                    <tr
+                      key={row.step}
+                      className={`${row.step === summary.staticIndex ? "font-bold" : ""} ${row.travel === 0 ? "bg-blue-400" : ""}`}
+                    >
+                      <td className="text-right">{row.step}</td>
+                      <td className="text-right">{mmToInches(row.travel).toFixed(3)}</td>
+                      <td className="text-right">{radiansToDegrees(row.camber).toFixed(3)}</td>
+                      <td className="text-right">{radiansToDegrees(row.caster).toFixed(3)}</td>
+                      <td className="text-right">{radiansToDegrees(row.toe).toFixed(3)}</td>
+                      <td className="text-right">{mmToInches(row.scrub).toFixed(3)}</td>
+                      <td className="text-right">{mmToInches(row.rcY).toFixed(3)}</td>
+                      <td className="text-right">{mmToInches(row.rcZ).toFixed(3)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )
+      }
     </main >
   );
 }
