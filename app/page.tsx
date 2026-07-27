@@ -32,11 +32,15 @@ function getNum(formData: FormData, name: string, fallback = 0): number {
   return Number.isNaN(parsed) ? fallback : parsed;
 }
 
+const radiansToDegrees = (radians: number) : number => radians * (180 / Math.PI);
+const mmToInches = (mm: number) : number => mm * 0.0393701;
+const inToMM = (inches: number) => inches * 25.4;
+
 function getPoint(formData: FormData, prefix: string): Vec3 {
   return [
-    getNum(formData, `${prefix}x`),
-    getNum(formData, `${prefix}y`),
-    getNum(formData, `${prefix}z`),
+    inToMM(getNum(formData, `${prefix}x`)),
+    inToMM(getNum(formData, `${prefix}y`)),
+    inToMM(getNum(formData, `${prefix}z`)),
   ];
 }
 
@@ -73,8 +77,8 @@ export default function Home() {
       const skl = new Point(getPoint(formData, "m")); // Shock Lower
       const sku = new Point(getPoint(formData, "n")); // Shock Upper
 
-      const fullJounce = Math.abs(getNum(formData, "positiveTravel", 5));
-      const fullRebound = -Math.abs(getNum(formData, "negativeTravel", 5));
+      const fullJounce = Math.abs(inToMM(getNum(formData, "positiveTravel", 5)));
+      const fullRebound = -Math.abs(inToMM(getNum(formData, "negativeTravel", 5)));
       const numSteps = Math.max(1, Math.round(getNum(formData, "numSteps", 20)));
 
       const unit = "mm";
@@ -137,27 +141,27 @@ export default function Home() {
             <li className="flex items-center justify-between">
               <p>UCA Inbd, Front (a)</p>
               <div>
-                <input type="number" name="ax" placeholder="X" className="input mx-2 w-30" defaultValue={120.1} step="any" required />
-                <input type="number" name="ay" placeholder="Y" className="input mx-2 w-30" defaultValue={240} step="any" required />
-                <input type="number" name="az" placeholder="Z" className="input mx-2 w-30" defaultValue={223} step="any" required />
+                <input type="number" name="ax" placeholder="X" className="input mx-2 w-30" defaultValue={4.72441} step="any" required />
+                <input type="number" name="ay" placeholder="Y" className="input mx-2 w-30" defaultValue={9.45} step="any" required />
+                <input type="number" name="az" placeholder="Z" className="input mx-2 w-30" defaultValue={8.78} step="any" required />
               </div>
             </li>
 
             <li className="flex items-center justify-between">
               <p>UCA Inbd, Rear (b)</p>
               <div>
-                <input type="number" name="bx" placeholder="X" className="input mx-2 w-30" defaultValue={-120.1} step="any" required />
-                <input type="number" name="by" placeholder="Y" className="input mx-2 w-30" defaultValue={240} step="any" required />
-                <input type="number" name="bz" placeholder="Z" className="input mx-2 w-30" defaultValue={216} step="any" required />
+                <input type="number" name="bx" placeholder="X" className="input mx-2 w-30" defaultValue={-4.72441} step="any" required />
+                <input type="number" name="by" placeholder="Y" className="input mx-2 w-30" defaultValue={9.45} step="any" required />
+                <input type="number" name="bz" placeholder="Z" className="input mx-2 w-30" defaultValue={8.5} step="any" required />
               </div>
             </li>
 
             <li className="flex items-center justify-between">
               <p>Upper Ball Joint (c)</p>
               <div>
-                <input type="number" name="cx" placeholder="X" className="input mx-2 w-30" defaultValue={-7.13} step="any" required />
-                <input type="number" name="cy" placeholder="Y" className="input mx-2 w-30" defaultValue={595} step="any" required />
-                <input type="number" name="cz" placeholder="Z" className="input mx-2 w-30" defaultValue={299} step="any" required />
+                <input type="number" name="cx" placeholder="X" className="input mx-2 w-30" defaultValue={-0.2807087} step="any" required />
+                <input type="number" name="cy" placeholder="Y" className="input mx-2 w-30" defaultValue={23.43} step="any" required />
+                <input type="number" name="cz" placeholder="Z" className="input mx-2 w-30" defaultValue={11.77} step="any" required />
               </div>
             </li>
 
@@ -166,27 +170,27 @@ export default function Home() {
             <li className="flex items-center justify-between">
               <p>LCA Inbd, Front (d)</p>
               <div>
-                <input type="number" name="dx" placeholder="X" className="input mx-2 w-30" defaultValue={175.1} step="any" required />
-                <input type="number" name="dy" placeholder="Y" className="input mx-2 w-30" defaultValue={175} step="any" required />
-                <input type="number" name="dz" placeholder="Z" className="input mx-2 w-30" defaultValue={111} step="any" required />
+                <input type="number" name="dx" placeholder="X" className="input mx-2 w-30" defaultValue={6.88} step="any" required />
+                <input type="number" name="dy" placeholder="Y" className="input mx-2 w-30" defaultValue={6.88} step="any" required />
+                <input type="number" name="dz" placeholder="Z" className="input mx-2 w-30" defaultValue={4.37} step="any" required />
               </div>
             </li>
 
             <li className="flex items-center justify-between">
               <p>LCA Inbd, Rear (e)</p>
               <div>
-                <input type="number" name="ex" placeholder="X" className="input mx-2 w-30" defaultValue={-175.1} step="any" required />
-                <input type="number" name="ey" placeholder="Y" className="input mx-2 w-30" defaultValue={175} step="any" required />
-                <input type="number" name="ez" placeholder="Z" className="input mx-2 w-30" defaultValue={111} step="any" required />
+                <input type="number" name="ex" placeholder="X" className="input mx-2 w-30" defaultValue={-6.9} step="any" required />
+                <input type="number" name="ey" placeholder="Y" className="input mx-2 w-30" defaultValue={6.9} step="any" required />
+                <input type="number" name="ez" placeholder="Z" className="input mx-2 w-30" defaultValue={4.37} step="any" required />
               </div>
             </li>
 
             <li className="flex items-center justify-between">
               <p>Lower Ball Joint (f)</p>
               <div>
-                <input type="number" name="fx" placeholder="X" className="input mx-2 w-30" defaultValue={-3.1} step="any" required />
-                <input type="number" name="fy" placeholder="Y" className="input mx-2 w-30" defaultValue={608} step="any" required />
-                <input type="number" name="fz" placeholder="Z" className="input mx-2 w-30" defaultValue={114} step="any" required />
+                <input type="number" name="fx" placeholder="X" className="input mx-2 w-30" defaultValue={-0.12} step="any" required />
+                <input type="number" name="fy" placeholder="Y" className="input mx-2 w-30" defaultValue={23.94} step="any" required />
+                <input type="number" name="fz" placeholder="Z" className="input mx-2 w-30" defaultValue={4.50} step="any" required />
               </div>
             </li>
 
@@ -195,18 +199,18 @@ export default function Home() {
             <li className="flex items-center justify-between">
               <p>Toe Link Inboard (g)</p>
               <div>
-                <input type="number" name="gx" placeholder="X" className="input mx-2 w-30" defaultValue={55.1} step="any" required />
-                <input type="number" name="gy" placeholder="Y" className="input mx-2 w-30" defaultValue={140} step="any" required />
-                <input type="number" name="gz" placeholder="Z" className="input mx-2 w-30" defaultValue={163} step="any" required />
+                <input type="number" name="gx" placeholder="X" className="input mx-2 w-30" defaultValue={2.16} step="any" required />
+                <input type="number" name="gy" placeholder="Y" className="input mx-2 w-30" defaultValue={5.50} step="any" required />
+                <input type="number" name="gz" placeholder="Z" className="input mx-2 w-30" defaultValue={6.41} step="any" required />
               </div>
             </li>
 
             <li className="flex items-center justify-between">
               <p>Toe Link Outboard (h)</p>
               <div>
-                <input type="number" name="hx" placeholder="X" className="input mx-2 w-30" defaultValue={55.1} step="any" required />
-                <input type="number" name="hy" placeholder="Y" className="input mx-2 w-30" defaultValue={600} step="any" required />
-                <input type="number" name="hz" placeholder="Z" className="input mx-2 w-30" defaultValue={163} step="any" required />
+                <input type="number" name="hx" placeholder="X" className="input mx-2 w-30" defaultValue={2.17} step="any" required />
+                <input type="number" name="hy" placeholder="Y" className="input mx-2 w-30" defaultValue={23.62} step="any" required />
+                <input type="number" name="hz" placeholder="Z" className="input mx-2 w-30" defaultValue={6.4} step="any" required />
               </div>
             </li>
 
@@ -214,8 +218,8 @@ export default function Home() {
               <p>Wheel Center (i)</p>
               <div>
                 <input type="number" name="ix" placeholder="X" className="input mx-2 w-30" defaultValue={0} step="any" required />
-                <input type="number" name="iy" placeholder="Y" className="input mx-2 w-30" defaultValue={622.5} step="any" required />
-                <input type="number" name="iz" placeholder="Z" className="input mx-2 w-30" defaultValue={203} step="any" required />
+                <input type="number" name="iy" placeholder="Y" className="input mx-2 w-30" defaultValue={25} step="any" required />
+                <input type="number" name="iz" placeholder="Z" className="input mx-2 w-30" defaultValue={9} step="any" required />
               </div>
             </li>
 
@@ -224,45 +228,45 @@ export default function Home() {
             <li className="flex items-center justify-between">
               <p>Push Rod Outboard, Upright Side (j)</p>
               <div>
-                <input type="number" name="jx" placeholder="X" className="input mx-2 w-30" defaultValue={-13.9192} step="any" required />
-                <input type="number" name="jy" placeholder="Y" className="input mx-2 w-30" defaultValue={556.8442} step="any" required />
-                <input type="number" name="jz" placeholder="Z" className="input mx-2 w-30" defaultValue={124.9426} step="any" required />
+                <input type="number" name="jx" placeholder="X" className="input mx-2 w-30" defaultValue={-0.5} step="any" required />
+                <input type="number" name="jy" placeholder="Y" className="input mx-2 w-30" defaultValue={22} step="any" required />
+                <input type="number" name="jz" placeholder="Z" className="input mx-2 w-30" defaultValue={5} step="any" required />
               </div>
             </li>
 
             <li className="flex items-center justify-between">
               <p>Push Rod Inboard, Rocker Side (k)</p>
               <div>
-                <input type="number" name="kx" placeholder="X" className="input mx-2 w-30" defaultValue={-20.3792} step="any" required />
-                <input type="number" name="ky" placeholder="Y" className="input mx-2 w-30" defaultValue={350} step="any" required />
-                <input type="number" name="kz" placeholder="Z" className="input mx-2 w-30" defaultValue={487.934} step="any" required />
+                <input type="number" name="kx" placeholder="X" className="input mx-2 w-30" defaultValue={-0.8} step="any" required />
+                <input type="number" name="ky" placeholder="Y" className="input mx-2 w-30" defaultValue={13.80} step="any" required />
+                <input type="number" name="kz" placeholder="Z" className="input mx-2 w-30" defaultValue={19.21} step="any" required />
               </div>
             </li>
 
             <li className="flex items-center justify-between">
               <p>Rocker Pivot Center (l)</p>
               <div>
-                <input type="number" name="lx" placeholder="X" className="input mx-2 w-30" defaultValue={-23.38} step="any" required />
-                <input type="number" name="ly" placeholder="Y" className="input mx-2 w-30" defaultValue={280} step="any" required />
-                <input type="number" name="lz" placeholder="Z" className="input mx-2 w-30" defaultValue={450} step="any" required />
+                <input type="number" name="lx" placeholder="X" className="input mx-2 w-30" defaultValue={-0.92} step="any" required />
+                <input type="number" name="ly" placeholder="Y" className="input mx-2 w-30" defaultValue={11} step="any" required />
+                <input type="number" name="lz" placeholder="Z" className="input mx-2 w-30" defaultValue={17.72} step="any" required />
               </div>
             </li>
 
             <li className="flex items-center justify-between">
               <p>Shock Lower Mount (m)</p>
               <div>
-                <input type="number" name="mx" placeholder="X" className="input mx-2 w-30" defaultValue={-30} step="any" required />
-                <input type="number" name="my" placeholder="Y" className="input mx-2 w-30" defaultValue={150} step="any" required />
-                <input type="number" name="mz" placeholder="Z" className="input mx-2 w-30" defaultValue={300} step="any" required />
+                <input type="number" name="mx" placeholder="X" className="input mx-2 w-30" defaultValue={1.18} step="any" required />
+                <input type="number" name="my" placeholder="Y" className="input mx-2 w-30" defaultValue={5.9} step="any" required />
+                <input type="number" name="mz" placeholder="Z" className="input mx-2 w-30" defaultValue={11.8} step="any" required />
               </div>
             </li>
 
             <li className="flex items-center justify-between">
               <p>Shock Upper Mount (n)</p>
               <div>
-                <input type="number" name="nx" placeholder="X" className="input mx-2 w-30" defaultValue={-25} step="any" required />
-                <input type="number" name="ny" placeholder="Y" className="input mx-2 w-30" defaultValue={150} step="any" required />
-                <input type="number" name="nz" placeholder="Z" className="input mx-2 w-30" defaultValue={490} step="any" required />
+                <input type="number" name="nx" placeholder="X" className="input mx-2 w-30" defaultValue={-1} step="any" required />
+                <input type="number" name="ny" placeholder="Y" className="input mx-2 w-30" defaultValue={6} step="any" required />
+                <input type="number" name="nz" placeholder="Z" className="input mx-2 w-30" defaultValue={19.3} step="any" required />
               </div>
             </li>
           </ul>
@@ -277,7 +281,7 @@ export default function Home() {
                     name="positiveTravel"
                     placeholder="Allowance"
                     className="input mx-2 w-30"
-                    defaultValue={25.4}
+                    defaultValue={1}
                     step="any"
                     required
                   />
@@ -292,7 +296,7 @@ export default function Home() {
                     name="negativeTravel"
                     placeholder="Allowance"
                     className="input mx-2 w-30"
-                    defaultValue={25.4}
+                    defaultValue={1}
                     step="any"
                     required
                   />
@@ -361,13 +365,13 @@ export default function Home() {
             <thead>
               <tr>
                 <th className="text-right">Step</th>
-                <th className="text-right">Travel ({summary.unit})</th>
-                <th className="text-right">Camber</th>
-                <th className="text-right">Caster</th>
-                <th className="text-right">Toe</th>
-                <th className="text-right">Scrub</th>
-                <th className="text-right">RC Y</th>
-                <th className="text-right">RC Z</th>
+                <th className="text-right">Travel (in)</th>
+                <th className="text-right">Camber (deg)</th>
+                <th className="text-right">Caster (deg)</th>
+                <th className="text-right">Toe (deg)</th>
+                <th className="text-right">Scrub (in)</th>
+                <th className="text-right">RC Y (in)</th>
+                <th className="text-right">RC Z (in)</th>
               </tr>
             </thead>
             <tbody>
@@ -377,13 +381,13 @@ export default function Home() {
                   className={row.step === summary.staticIndex ? "font-bold" : ""}
                 >
                   <td className="text-right">{row.step}</td>
-                  <td className="text-right">{row.travel.toFixed(3)}</td>
-                  <td className="text-right">{row.camber.toFixed(3)}</td>
-                  <td className="text-right">{row.caster.toFixed(3)}</td>
-                  <td className="text-right">{row.toe.toFixed(3)}</td>
-                  <td className="text-right">{row.scrub.toFixed(3)}</td>
-                  <td className="text-right">{row.rcY.toFixed(3)}</td>
-                  <td className="text-right">{row.rcZ.toFixed(3)}</td>
+                  <td className="text-right">{mmToInches(row.travel).toFixed(3)}</td>
+                  <td className="text-right">{radiansToDegrees(row.camber).toFixed(3)}</td>
+                  <td className="text-right">{radiansToDegrees(row.caster).toFixed(3)}</td>
+                  <td className="text-right">{radiansToDegrees(row.toe).toFixed(3)}</td>
+                  <td className="text-right">{mmToInches(row.scrub).toFixed(3)}</td>
+                  <td className="text-right">{mmToInches(row.rcY).toFixed(3)}</td>
+                  <td className="text-right">{mmToInches(row.rcZ).toFixed(3)}</td>
                 </tr>
               ))}
             </tbody>
