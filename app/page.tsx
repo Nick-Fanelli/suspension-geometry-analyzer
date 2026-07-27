@@ -382,20 +382,6 @@ export default function Home() {
                             </li>
                         </ul>
                     </div>
-
-                    <div className="mt-10">
-                        {/* <h2 className="text-xl font-bold">
-              Roll Center:{" "}
-              {staticRow
-                ? `Y ${staticRow.rcY.toFixed(2)} / Z ${staticRow.rcZ.toFixed(2)} ${summary!.unit}`
-                : ""}
-            </h2> */}
-                        {summary && (
-                            <p className="text-sm opacity-70 mt-1">
-                                Static motion ratio: {summary.staticMotionRatio.toFixed(3)}
-                            </p>
-                        )}
-                    </div>
                 </div>
 
                 <button className="btn btn-success mt-10 w-full" type="submit">
@@ -412,7 +398,15 @@ export default function Home() {
             {
                 summary && (
                     <div className="mt-10 pb-20">
+
                         <h2 className="text-2xl font-bold mb-4">Simulated Kinematics</h2>
+                        {
+                            summary && (
+                                <p className="text-sm opacity-70 mt-1">
+                                    Static motion ratio: {summary.staticMotionRatio.toFixed(3)}
+                                </p>
+                            )
+                        }
                         <div className="overflow-x-auto">
                             <table className="table table-zebra">
                                 <thead>
