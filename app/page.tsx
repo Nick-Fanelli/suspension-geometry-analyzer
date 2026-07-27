@@ -1,65 +1,146 @@
-import Image from "next/image";
+"use client";
+
+import { calculateLineDistanceFromTwoPoints, Point } from "./(utils)/utility";
 
 export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+
+    const calculate = (e: React.SubmitEvent<HTMLFormElement>) => {
+
+        e.preventDefault();
+
+        const formData = new FormData(e.currentTarget);
+
+        const pointA: Point = { x: Number.parseFloat(formData.get("ax")?.toString() || "0"), y: Number.parseFloat(formData.get("ay")?.toString() || "0"), z: Number.parseFloat(formData.get("az")?.toString() || "0") }
+        const pointB: Point = { x: Number.parseFloat(formData.get("bx")?.toString() || "0"), y: Number.parseFloat(formData.get("by")?.toString() || "0"), z: Number.parseFloat(formData.get("bz")?.toString() || "0") }
+        const pointC: Point = { x: Number.parseFloat(formData.get("cx")?.toString() || "0"), y: Number.parseFloat(formData.get("cy")?.toString() || "0"), z: Number.parseFloat(formData.get("cz")?.toString() || "0") }
+        const pointD: Point = { x: Number.parseFloat(formData.get("dx")?.toString() || "0"), y: Number.parseFloat(formData.get("dy")?.toString() || "0"), z: Number.parseFloat(formData.get("dz")?.toString() || "0") }
+        const pointE: Point = { x: Number.parseFloat(formData.get("ex")?.toString() || "0"), y: Number.parseFloat(formData.get("ey")?.toString() || "0"), z: Number.parseFloat(formData.get("ez")?.toString() || "0") }
+        const pointF: Point = { x: Number.parseFloat(formData.get("fx")?.toString() || "0"), y: Number.parseFloat(formData.get("fy")?.toString() || "0"), z: Number.parseFloat(formData.get("fz")?.toString() || "0") }
+        const pointG: Point = { x: Number.parseFloat(formData.get("gx")?.toString() || "0"), y: Number.parseFloat(formData.get("gy")?.toString() || "0"), z: Number.parseFloat(formData.get("gz")?.toString() || "0") }
+        const pointH: Point = { x: Number.parseFloat(formData.get("hx")?.toString() || "0"), y: Number.parseFloat(formData.get("hy")?.toString() || "0"), z: Number.parseFloat(formData.get("hz")?.toString() || "0") }
+        const pointI: Point = { x: Number.parseFloat(formData.get("ix")?.toString() || "0"), y: Number.parseFloat(formData.get("iy")?.toString() || "0"), z: Number.parseFloat(formData.get("iz")?.toString() || "0") }
+
+        console.log("AC Dist", calculateLineDistanceFromTwoPoints(pointA, pointC));
+
+    }
+
+    return (
+
+        <main className="pt-4 px-10">
+
+            <h1 className="text-3xl font-bold">Suspension Geometry Analyzer</h1>
+
+            <form onSubmit={calculate}>
+
+                <div className="flex">
+                    <ul className="pt-10 w-full max-w-150">
+                        <li className="font-bold text-xl mb-2">Upper Control Arm Points</li>
+                        <li className="flex items-center justify-between">
+                            <p>UCA Inbd, Front (a)</p>
+                            <div>
+                                <input type="number" name="ax" id="" placeholder="X" className="input mx-2 w-30" defaultValue={10} required />
+                                <input type="number" name="ay" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={12} required />
+                                <input type="number" name="az" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={21} required />
+                            </div>
+                        </li>
+                        <li className="flex items-center justify-between">
+                            <p>UCA Inbd, Rear (b)</p>
+                            <div>
+                                <input type="number" name="bx" id="" placeholder="X" className="input mx-2 w-30" defaultValue={5.5} required />
+                                <input type="number" name="by" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={6} required />
+                                <input type="number" name="bz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={21} required />
+                            </div>
+                        </li>
+                        <li className="flex items-center justify-between">
+                            <p>Upper Ball Joint (c)</p>
+                            <div>
+                                <input type="number" name="cx" id="" placeholder="X" className="input mx-2 w-30" defaultValue={23} required />
+                                <input type="number" name="cy" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={0} required />
+                                <input type="number" name="cz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={14.25} required />
+                            </div>
+                        </li>
+                        <li className="font-bold text-xl mb-2 my-5">Lower Control Arm Points</li>
+                        <li className="flex items-center justify-between">
+                            <p>LCA Inbd, Front (d)</p>
+                            <div>
+                                <input type="number" name="dx" id="" placeholder="X" className="input mx-2 w-30" defaultValue={10} required />
+                                <input type="number" name="dy" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={12} required />
+                                <input type="number" name="dz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={14} required />
+                            </div>
+                        </li>
+                        <li className="flex items-center justify-between">
+                            <p>LCA Inbd, Rear (e)</p>
+                            <div>
+                                <input type="number" name="ex" id="" placeholder="X" className="input mx-2 w-30" defaultValue={5.5} required />
+                                <input type="number" name="ey" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={6} required />
+                                <input type="number" name="ez" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={14} required />
+                            </div>
+                        </li>
+                        <li className="flex items-center justify-between">
+                            <p>Lower Ball Joint (f)</p>
+                            <div>
+                                <input type="number" name="fx" id="" placeholder="X" className="input mx-2 w-30" defaultValue={23} required />
+                                <input type="number" name="fy" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={0} required />
+                                <input type="number" name="fz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={7.75} required />
+                            </div>
+                        </li>
+                        <li className="font-bold text-xl mb-2  my-5">Final Points</li>
+                        <li className="flex items-center justify-between">
+                            <p>Toe Link Inboard (g)</p>
+                            <div>
+                                <input type="number" name="gx" id="" placeholder="X" className="input mx-2 w-30" defaultValue={5.5} required />
+                                <input type="number" name="gy" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={6} required />
+                                <input type="number" name="gz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={21} required />
+                            </div>
+                        </li>
+                        <li className="flex items-center justify-between">
+                            <p>Toe Link Outboard (h)</p>
+                            <div>
+                                <input type="number" name="hx" id="" placeholder="X" className="input mx-2 w-30" defaultValue={23} required />
+                                <input type="number" name="hy" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={3} required />
+                                <input type="number" name="hz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={11} required />
+                            </div>
+                        </li>
+                        <li className="flex items-center justify-between">
+                            <p>Wheel Center (i)</p>
+                            <div>
+                                <input type="number" name="ix" id="" placeholder="X" className="input mx-2 w-30" defaultValue={23} required />
+                                <input type="number" name="iy" id="" placeholder="Y" className="input mx-2 w-30" defaultValue={0} required />
+                                <input type="number" name="iz" id="" placeholder="Z" className="input mx-2 w-30" defaultValue={11} required />
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div className="mt-19 ml-20">
+                        <ul className="">
+                            <li className="flex items-center justify-between">
+                                <p>Positive Travel Allowance</p>
+                                <div>
+                                    <input type="number" name="" id="" placeholder="Allowance" className="input mx-2 w-30" defaultValue={5} required />
+                                </div>
+                            </li>
+                            <li className="flex items-center justify-between">
+                                <p>Negative Travel Allowance</p>
+                                <div>
+                                    <input type="number" name="" id="" placeholder="Allowance" className="input mx-2 w-30" defaultValue={5} required />
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div className="mt-10">
+                            <h2 className="text-xl font-bold">Chamber: VALUE</h2>
+                            <h2 className="text-xl font-bold">Toe: VALUE</h2>
+                            <h2 className="text-xl font-bold">Caster: VALUE</h2>
+                            <h2 className="text-xl font-light italic mt-2 opacity-50">Roll Center: COMING SOON</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <button className="btn btn-success mt-10" type="submit">Calculate</button>
+            </form>
+
+        </main>
+
+    );
+
 }
