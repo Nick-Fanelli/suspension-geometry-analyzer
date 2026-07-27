@@ -2,6 +2,12 @@
 
 An open-source **suspension geometry and kinematics analyzer** for **double wishbone suspension systems**, designed to calculate and visualize key suspension characteristics such as camber gain, caster gain, bump steer, roll center movement, and more.
 
+## Live Demo
+
+Try the application online:
+
+https://nick-fanelli.github.io/suspension-geometry-analyzer/
+
 ---
 
 ## Authors
