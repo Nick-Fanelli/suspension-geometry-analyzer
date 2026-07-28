@@ -429,9 +429,9 @@ export default function Home() {
                                         >
                                             <td className="text-right">{row.step}</td>
                                             <td className="text-right">{mmToInches(row.travel).toFixed(3)}</td>
-                                            <td className="text-right">{radiansToDegrees(row.camber).toFixed(3)}</td>
-                                            <td className="text-right">{radiansToDegrees(row.caster).toFixed(3)}</td>
-                                            <td className="text-right">{radiansToDegrees(row.toe).toFixed(3)}</td>
+                                            <td className="text-right">{row.camber.toFixed(3)}</td>
+                                            <td className="text-right">{row.caster.toFixed(3)}</td>
+                                            <td className="text-right">{row.toe.toFixed(3)}</td>
                                             <td className="text-right">{mmToInches(row.scrub).toFixed(3)}</td>
                                             <td className="text-right">{mmToInches(row.rcY).toFixed(3)}</td>
                                             <td className="text-right">{mmToInches(row.rcZ).toFixed(3)}</td>
