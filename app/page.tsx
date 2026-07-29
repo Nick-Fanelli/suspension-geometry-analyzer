@@ -407,18 +407,18 @@ export default function Home() {
                                 </p>
                             )
                         }
-                        <div className="overflow-x-auto">
-                            <table className="table table-zebra">
-                                <thead>
+                        <div className="">
+                            <table className="table table-zebra relative border-collapse">
+                                <thead className=" z-10 bg-base-100">
                                     <tr>
-                                        <th className="text-right">Step</th>
-                                        <th className="text-right">Travel (in)</th>
-                                        <th className="text-right">Camber (deg)</th>
-                                        <th className="text-right">Caster (deg)</th>
-                                        <th className="text-right">Toe (deg)</th>
-                                        <th className="text-right">Scrub (in)</th>
-                                        <th className="text-right">RC Y (in)</th>
-                                        <th className="text-right">RC Z (in)</th>
+                                        <th className="text-right sticky top-0 bg-base-100">Step</th>
+                                        <th className="text-right sticky top-0 bg-base-100">Travel (in)</th>
+                                        <th className="text-right sticky top-0 bg-base-100">Camber (deg)</th>
+                                        <th className="text-right sticky top-0 bg-base-100">Caster (deg)</th>
+                                        <th className="text-right sticky top-0 bg-base-100">Toe (deg)</th>
+                                        <th className="text-right sticky top-0 bg-base-100">Scrub (in)</th>
+                                        <th className="text-right sticky top-0 bg-base-100">RC Y (in)</th>
+                                        <th className="text-right sticky top-0 bg-base-100">RC Z (in)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
