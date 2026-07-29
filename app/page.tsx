@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { KinSolve, Point, Vec3 } from "./(utils)/utility";
+import Scene from "./display";
 
 // One row of the results table, mirroring the columns main.py prints:
 // Step | Travel(mm) | Camber | Caster | Toe | Scrub | RC Y | RC Z
@@ -45,6 +46,9 @@ function getPoint(formData: FormData, prefix: string): Vec3 {
 }
 
 export default function Home() {
+
+    const [points, setPoints] = useState<Vec3[] | null>(null);
+
     const [summary, setSummary] = useState<SolveSummary | null>(null);
     const [error, setError] = useState<string | null>(null);
 
@@ -69,6 +73,12 @@ export default function Home() {
             const tro = new Point(getPoint(formData, "h")); // Toe Link Outboard
             // Wheel center
             const wc = new Point(getPoint(formData, "i"));
+
+            setPoints([
+                getPoint(formData, "a"), getPoint(formData, "b"), getPoint(formData, "c"),
+                getPoint(formData, "d"), getPoint(formData, "e"), getPoint(formData, "f"),
+                getPoint(formData, "g"), getPoint(formData, "h"), getPoint(formData, "i")
+            ]);
 
             // Pushrod / rocker / shock
             const pro = new Point(getPoint(formData, "j")); // Push Rod Outboard (upright side)
@@ -125,7 +135,6 @@ export default function Home() {
             setSummary(null);
         }
     };
-
 
     const staticRow = summary?.rows[summary.staticIndex];
 
@@ -390,6 +399,14 @@ export default function Home() {
             </form>
 
             {
+                points &&
+                <div className="flex items-center justify-center my-5">
+                    <Scene vecs={points} />
+                </div>
+            }
+
+
+            {
                 error && (
                     <p className="text-red-600 font-semibold mt-6">{error}</p>
                 )
@@ -397,7 +414,7 @@ export default function Home() {
 
             {
                 summary && (
-                    <div className="mt-10 pb-20">
+                    <div className="pb-20">
 
                         <h2 className="text-2xl font-bold mb-4">Simulated Kinematics</h2>
                         {
